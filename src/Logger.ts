@@ -3,15 +3,15 @@ import LoggerProps from './Types/LoggerInterface';
 import LogLevel from './Types/LogLevelEnum';
 
 class Logger {
-    public format: string = "";
+    public format: string = '';
     public logLevel: LogLevel;
-    public logProfiles: LogProfile[]
+    public logProfiles: LogProfile[];
 
     constructor({
         format,
         loglevel = LogLevel.INFO,
         pipelines = [],
-        logProfiles = [],
+        logProfiles = []
     }: LoggerProps) {
         this.format = format;
         this.logLevel = loglevel;
@@ -19,11 +19,10 @@ class Logger {
 
     /**
      * Log something to your pipelines
-     * @param profile 
-     * @param message 
+     * @param profile
+     * @param message
      */
-    public log(profile: string, message: string): void {
-    }
+    public log(profile: string, message: string): void {}
 }
 
 export default Logger;

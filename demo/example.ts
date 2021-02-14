@@ -1,8 +1,9 @@
 import Logger from "../src/Logger"
+import LogLevel from "../src/Types/LogLevelEnum";
 
 const logger = new Logger({
-  format: string;
-  loglevel?: number;
-  pipelines?: PipelineProps[];
-  logProfiles?: LogProfileProps[];
+  format: "|",
+  loglevel: LogLevel.INFO,
+  pipelines: [],
+  logProfiles: [],
 });

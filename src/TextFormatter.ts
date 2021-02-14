@@ -48,7 +48,7 @@ class TextFormatter {
      * @param replaceFunction function that returns string to replace placeholder
      * @returns formatted key
      */
-    public registerPlaceholder(key, replaceFunction: () => string): string {
+    public registerPlaceholder(key: string, replaceFunction: () => string): string {
         key = `{{${key}}}`;
         this.placeholder.set(key, replaceFunction);
         return key;
