@@ -1,9 +1,10 @@
 import PipelineProps from './PipelineInterface';
 import LogProfileProps from './LogProfileInterface';
+import LogLevel from './LogLevelEnum';
 
 interface LoggerProps {
     format: string;
-    loglevel?: number;
+    loglevel?: number | LogLevel;
     pipelines?: PipelineProps[];
     logProfiles?: LogProfileProps[];
 }

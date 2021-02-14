@@ -1,4 +1,4 @@
-class TextFormatter {
+class Formatter {
     public colors: Map<string, string> = new Map();
     public placeholder: Map<string, () => string> = new Map();
 
@@ -23,7 +23,7 @@ class TextFormatter {
      * @returns message without color placeholder
      */
     public removeColor(message: string): string {
-        message = message.replace(TextFormatter.COLOR_REGEX, '');
+        message = message.replace(Formatter.COLOR_REGEX, '');
         return message;
     }
 
@@ -33,7 +33,7 @@ class TextFormatter {
      * @returns message with ansi escape color codes
      */
     public replaceColor(message: string): string {
-        const keys: string[] = message.match(TextFormatter.COLOR_REGEX);
+        const keys: string[] = message.match(Formatter.COLOR_REGEX);
         for (const key of keys) {
             if (this.colors.has(key)) {
                 message = message.replace(key, this.colors.get(key));
@@ -55,7 +55,7 @@ class TextFormatter {
     }
 
     public replacePlaceholder(message: string): string {
-        const keys: string[] = message.match(TextFormatter.PLACEHOLDER_REGEX);
+        const keys: string[] = message.match(Formatter.PLACEHOLDER_REGEX);
         for (const key of keys) {
             if (this.colors.has(key)) {
                 message = message.replace(key, this.placeholder.get(key)());
@@ -65,4 +65,4 @@ class TextFormatter {
     }
 }
 
-export default TextFormatter;
+export default Formatter;

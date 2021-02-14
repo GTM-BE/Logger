@@ -1,9 +1,9 @@
-import LogLevelEnum from './LogLevelEnum';
+import LogLevel from './LogLevelEnum';
 
 interface LogProfileProps {
     name: string;
     prefix: string;
-    LogLevel: LogLevelEnum;
+    logLevel: number | LogLevel;
     prefixColor?: string;
     suffixColor?: string;
 }
