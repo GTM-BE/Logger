@@ -3,7 +3,7 @@ import LogProfileProps from './LogProfileInterface';
 import LogLevel from './LogLevelEnum';
 
 interface LoggerProps {
-    format: string;
+    format?: string;
     loglevel?: number | LogLevel;
     pipelines?: PipelineProps[];
     logProfiles?: LogProfileProps[];

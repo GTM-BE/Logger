@@ -1,8 +1,14 @@
-import LogLevelEnum from './LogLevelEnum';
+import LogProfile from '../LogProfile';
+import LogLevel from './LogLevelEnum';
 
 interface PipelineProps {
     name: string;
-    pipe: (message: string, logLevel: LogLevelEnum) => boolean;
+    includeColors?: boolean;
+    pipe: (
+        message: string,
+        logProfile: LogProfile,
+        logLevel: number | LogLevel
+    ) => boolean;
 }
 
 export default PipelineProps;
