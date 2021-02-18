@@ -7,6 +7,9 @@ interface LoggerProps {
     loglevel?: number | LogLevel;
     pipelines?: PipelineProps[];
     logProfiles?: LogProfileProps[];
+    defaultPipelines?: boolean;
+    defaultProfiles?: boolean;
+    defaultColors?: boolean;
 }
 
 export default LoggerProps;

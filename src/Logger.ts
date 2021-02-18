@@ -1,6 +1,8 @@
 import Formatter from './Formatter';
 import LogProfile from './LogProfile';
 import Pipeline from './Pipeline';
+import ConsolePipeline from './Pipelines/ConsolePipeline';
+import FilePipeline from './Pipelines/FilePipeline';
 import LoggerProps from './Types/LoggerInterface';
 import LogLevel from './Types/LogLevelEnum';
 import LogProfileProps from './Types/LogProfileInterface';
@@ -18,7 +20,10 @@ class Logger {
         format,
         loglevel = LogLevel.INFO,
         pipelines = [],
-        logProfiles = []
+        logProfiles = [],
+        defaultPipelines = true,
+        defaultProfiles = true,
+        defaultColors = true
     }: LoggerProps): Logger {
         this.formatter = new Formatter(format);
         this.logLevel = loglevel;
@@ -27,11 +32,41 @@ class Logger {
             this.registerPipeline(pipeline);
         }
 
+        if (defaultPipelines) {
+            this.registerPipeline(new FilePipeline('logger'));
+            this.registerPipeline(new ConsolePipeline());
+        }
+
         for (const logProfile of logProfiles) {
             this.registerProfile(logProfile);
         }
 
-        console.log(this);
+        if (defaultProfiles) {
+            this.registerProfile({
+                name: 'info',
+                prefix: 'IFNO',
+                logLevel: LogLevel.INFO
+            });
+            this.registerProfile({
+                name: 'warn',
+                prefix: 'WARN',
+                logLevel: LogLevel.INFO
+            });
+            this.registerProfile({
+                name: 'error',
+                prefix: 'ERROR',
+                logLevel: LogLevel.INFO
+            });
+            this.registerProfile({
+                name: 'debug',
+                prefix: 'DEBUG',
+                logLevel: LogLevel.DEBUG
+            });
+        }
+
+        if (defaultColors) {
+            // Do something later :D
+        }
         return this;
     }
 
