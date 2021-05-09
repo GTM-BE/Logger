@@ -43,7 +43,7 @@ class Logger {
             });
             this.registerProfile({
                 name: 'debug',
-                prefix: `${ColorEnum.GREY}DEBUG${ColorEnum.WHITE}`,
+                prefix: `${ColorEnum.DARK_GREY}DEBUG${ColorEnum.WHITE}`,
                 logLevel: LogLevel.DEBUG
             });
         }

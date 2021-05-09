@@ -4,10 +4,7 @@ import Pipeline from './Pipeline';
 import PlaceHolder from './Types/PlaceholderEnum';
 import PipelineProps from './Types/PipelineProps';
 export default {
-    Logger,
-    Pipeline,
-    LogProfile,
-    PlaceHolder,
-    PipelineProps
+    Logger
 };
+export { Pipeline, LogProfile, PlaceHolder, PipelineProps };
 //# sourceMappingURL=Index.js.map

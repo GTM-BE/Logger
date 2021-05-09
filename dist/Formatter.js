@@ -56,6 +56,6 @@ class Formatter {
 }
 Formatter.COLOR_REGEX = new RegExp(/%[a-zA-Z_]*%/gm);
 Formatter.PLACEHOLDER_REGEX = new RegExp(/{{[a-zA-Z_]*}}/gm);
-Formatter.DEFAULT_FORMAT = `${ColorEnum.GREY}[${ColorEnum.DARK_GREY}${Placeholder.TIME}${ColorEnum.GREY}] ${Placeholder.PREFIX} ${ColorEnum.GREY}>>> ${Placeholder.MESSAGE}`;
+Formatter.DEFAULT_FORMAT = `${ColorEnum.GREY}[${ColorEnum.DARK_GREY}${Placeholder.TIME}${ColorEnum.GREY}] ${Placeholder.PREFIX}${ColorEnum.GREY} >>> ${Placeholder.MESSAGE}`;
 export default Formatter;
 //# sourceMappingURL=Formatter.js.map
