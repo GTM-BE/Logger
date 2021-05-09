@@ -5,9 +5,12 @@ import PlaceHolder from './Types/PlaceholderEnum';
 import PipelineProps from './Types/PipelineProps';
 
 export default {
-    Logger,
+    Logger
+};
+
+export {
     Pipeline,
     LogProfile,
     PlaceHolder,
     PipelineProps
-};
+}

@@ -1,6 +1,6 @@
 {
   "name": "logger",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Custom logger for our projects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
