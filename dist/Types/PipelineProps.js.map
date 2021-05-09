@@ -1,0 +1,1 @@
+{"version":3,"file":"PipelineProps.js","sourceRoot":"","sources":["../../src/Types/PipelineProps.ts"],"names":[],"mappings":"AAGA,MAAe,aAAa;IAIxB,YAAY,IAAY,EAAE,gBAAyB,IAAI;QACnD,IAAI,CAAC,IAAI,GAAG,IAAI,CAAC;QACjB,IAAI,CAAC,aAAa,GAAG,aAAa,CAAC;IACvC,CAAC;CAOJ;AAED,eAAe,aAAa,CAAC"}
