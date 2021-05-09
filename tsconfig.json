@@ -4,9 +4,11 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "./build/",
-    "sourceMap": true
-  },
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "declaration": true,
+    "strict": true,
+  },    
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "exclude": ["node_modules", "**/*.spec.ts", "dist"]
   }
