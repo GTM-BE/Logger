@@ -25,8 +25,8 @@ class Logger {
         defaultColors = true
     }: LoggerProps): Logger {
         this.formatter = new Formatter(format);
-        this.logLevel = loglevel
-        
+        this.logLevel = loglevel;
+
         for (const pipeline of pipelines) {
             this.registerPipeline(pipeline);
         }
@@ -92,13 +92,10 @@ class Logger {
      */
     public log(profile: string, message: string): boolean {
         const logProfile = this.logProfiles.get(profile);
-        if      (logProfile)      {
+        if (logProfile) {
             for (const [key, value] of this.pipelines) {
-                const formattedMessage = this.formatter?.format(
-                    message,
-                    logProfile,
-                    value
-                ) ?? '';
+                const formattedMessage =
+                    this.formatter?.format(message, logProfile, value) ?? '';
                 value.pipe(formattedMessage, logProfile, this.logLevel);
             }
             return true;

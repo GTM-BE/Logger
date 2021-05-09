@@ -130,12 +130,8 @@ class Formatter {
         for (const key of keys) {
             const repalceContent = this.placeholder.get(key);
             if (repalceContent) {
-                message = message.replace(
-                    key,
-                    repalceContent(message, profile)
-                );
+                message = message.replace(key, repalceContent(message, profile));
             }
-
         }
         return message;
     }
