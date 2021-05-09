@@ -1,6 +1,6 @@
 import LogProfile from './LogProfile';
 import LogLevel from './Types/LogLevelEnum';
-import PipelineProps from './Types/PipelineInterface';
+import PipelineProps from './Types/PipelineProps';
 
 class Pipeline implements PipelineProps {
     public name: string;

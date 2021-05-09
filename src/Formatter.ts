@@ -1,5 +1,6 @@
 import LogProfile from './LogProfile';
-import Pipeline from './Pipeline';
+import ColorEnum from './Types/ColorEnum';
+import PipelineProps from './Types/PipelineProps';
 import Placeholder from './Types/PlaceholderEnum';
 
 class Formatter {
@@ -12,7 +13,7 @@ class Formatter {
 
     public static COLOR_REGEX: RegExp = new RegExp(/%[a-zA-Z_]*%/gm);
     public static PLACEHOLDER_REGEX: RegExp = new RegExp(/{{[a-zA-Z_]*}}/gm);
-    public static DEFAULT_FORMAT: string = `[${Placeholder.TIME}] ${Placeholder.PREFIX} >>> ${Placeholder.MESSAGE}`;
+    public static DEFAULT_FORMAT: string = `${ColorEnum.GREY}[${ColorEnum.DARK_GREY}${Placeholder.TIME}${ColorEnum.GREY}] ${Placeholder.PREFIX}${ColorEnum.GREY} >>> ${Placeholder.MESSAGE}`;
 
     /**
      * Helper for message formatting
@@ -58,7 +59,7 @@ class Formatter {
         );
     }
 
-    public format(message: string, profile: LogProfile, pipeline: Pipeline): string {
+    public format(message: string, profile: LogProfile, pipeline: PipelineProps): string {
         message = this.replacePlaceholder(message, profile);
         message = pipeline.includeColors
             ? this.replaceColor(message)
@@ -73,9 +74,8 @@ class Formatter {
      * @returns formatted key
      */
     public registerColor(key: string, id: number): string {
-        key = `%${key}%`;
         this.colors.set(key, `\u001b[38;5;${id}m`);
-        return '';
+        return key;
     }
 
     /**
@@ -94,10 +94,10 @@ class Formatter {
      * @returns message with ansi escape color codes
      */
     public replaceColor(message: string): string {
-        const keys: string[] = message.match(Formatter.COLOR_REGEX);
+        const keys: string[] = message.match(Formatter.COLOR_REGEX) ?? [];
         for (const key of keys) {
             if (this.colors.has(key)) {
-                message = message.replace(key, this.colors.get(key));
+                message = message.replace(key, this.colors.get(key) ?? '');
             }
         }
         return message;
@@ -125,14 +125,17 @@ class Formatter {
      * @returns formatted message
      */
     public replacePlaceholder(message: string, profile: LogProfile): string {
-        const keys: string[] = message.match(Formatter.PLACEHOLDER_REGEX);
+        message = this.template.replace(Placeholder.MESSAGE, message);
+        const keys: string[] = message.match(Formatter.PLACEHOLDER_REGEX) ?? [];
         for (const key of keys) {
-            if (this.colors.has(key)) {
+            const repalceContent = this.placeholder.get(key);
+            if (repalceContent) {
                 message = message.replace(
                     key,
-                    this.placeholder.get(key)(message, profile)
+                    repalceContent(message, profile)
                 );
             }
+
         }
         return message;
     }

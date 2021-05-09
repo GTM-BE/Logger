@@ -1,14 +1,10 @@
 import LogLevel from '../Types/LogLevelEnum';
-import PipelineProps from '../Types/PipelineInterface';
+import PipelineProps from '../Types/PipelineProps';
 import LogProfile from '../LogProfile';
 
-class ConsolePipeline implements PipelineProps {
-    public name: string;
-    public includeColors?: boolean;
-
+class ConsolePipeline extends PipelineProps {
     constructor() {
-        this.name = 'consolePipeline';
-        this.includeColors = true;
+        super('consolePipeline', true);
     }
 
     /**
@@ -20,7 +16,7 @@ class ConsolePipeline implements PipelineProps {
         logProfile: LogProfile,
         logLevel: number | LogLevel
     ): boolean {
-        if (logLevel < logProfile.logLevel) console.log(message);
+        if (logLevel <= logProfile.logLevel) console.log(message);
         return true;
     }
 }

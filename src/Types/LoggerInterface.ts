@@ -1,4 +1,4 @@
-import PipelineProps from './PipelineInterface';
+import PipelineProps from './PipelineProps';
 import LogProfileProps from './LogProfileInterface';
 import LogLevel from './LogLevelEnum';
 

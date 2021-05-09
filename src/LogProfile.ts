@@ -5,21 +5,11 @@ class LogProfile implements LogProfileProps {
     public name: string;
     public logLevel: LogLevel;
     public prefix: string;
-    public prefixColor: string;
-    public suffixColor: string;
 
-    constructor({
-        name,
-        prefix,
-        logLevel = LogLevel.INFO,
-        prefixColor = '',
-        suffixColor = ''
-    }: LogProfileProps) {
+    constructor({ name, prefix, logLevel = LogLevel.INFO }: LogProfileProps) {
         this.name = name;
         this.prefix = prefix;
         this.logLevel = logLevel;
-        this.prefixColor = prefixColor;
-        this.suffixColor = suffixColor;
     }
 }
 

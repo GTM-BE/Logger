@@ -3,18 +3,17 @@ import LogProfile from './LogProfile';
 import Pipeline from './Pipeline';
 import ConsolePipeline from './Pipelines/ConsolePipeline';
 import FilePipeline from './Pipelines/FilePipeline';
+import ColorEnum from './Types/ColorEnum';
 import LoggerProps from './Types/LoggerInterface';
 import LogLevel from './Types/LogLevelEnum';
 import LogProfileProps from './Types/LogProfileInterface';
-import PipelineProps from './Types/PipelineInterface';
+import PipelineProps from './Types/PipelineProps';
 
 class Logger {
-    public formatter: Formatter;
-    public logLevel: LogLevel;
+    public formatter: Formatter | undefined;
+    public logLevel: LogLevel = LogLevel.INFO;
     public logProfiles: Map<string, LogProfile> = new Map();
-    public pipelines: Map<string, Pipeline> = new Map();
-
-    constructor() {}
+    public pipelines: Map<string, PipelineProps> = new Map();
 
     public enable({
         format,
@@ -26,8 +25,8 @@ class Logger {
         defaultColors = true
     }: LoggerProps): Logger {
         this.formatter = new Formatter(format);
-        this.logLevel = loglevel;
-
+        this.logLevel = loglevel
+        
         for (const pipeline of pipelines) {
             this.registerPipeline(pipeline);
         }
@@ -44,28 +43,43 @@ class Logger {
         if (defaultProfiles) {
             this.registerProfile({
                 name: 'info',
-                prefix: 'IFNO',
+                prefix: `${ColorEnum.GREEN}INFO${ColorEnum.WHITE}`,
                 logLevel: LogLevel.INFO
             });
             this.registerProfile({
                 name: 'warn',
-                prefix: 'WARN',
+                prefix: `${ColorEnum.YELLOW}WARN${ColorEnum.WHITE}`,
                 logLevel: LogLevel.INFO
             });
             this.registerProfile({
-                name: 'error',
-                prefix: 'ERROR',
+                name: `error`,
+                prefix: `${ColorEnum.RED}ERROR${ColorEnum.WHITE}`,
                 logLevel: LogLevel.INFO
             });
             this.registerProfile({
                 name: 'debug',
-                prefix: 'DEBUG',
+                prefix: `${ColorEnum.DARK_GREY}DEBUG${ColorEnum.WHITE}`,
                 logLevel: LogLevel.DEBUG
             });
         }
 
         if (defaultColors) {
-            // Do something later :D
+            this.formatter.registerColor(ColorEnum.BLACK, 0);
+            this.formatter.registerColor(ColorEnum.DARK_RED, 1);
+            this.formatter.registerColor(ColorEnum.DARK_GREEN, 2);
+            this.formatter.registerColor(ColorEnum.GOLD, 3);
+            this.formatter.registerColor(ColorEnum.DARK_BLUE, 4);
+            this.formatter.registerColor(ColorEnum.VIOLET, 5);
+            this.formatter.registerColor(ColorEnum.CYAN, 6);
+            this.formatter.registerColor(ColorEnum.GREY, 7);
+            this.formatter.registerColor(ColorEnum.DARK_GREY, 8);
+            this.formatter.registerColor(ColorEnum.RED, 9);
+            this.formatter.registerColor(ColorEnum.GREEN, 10);
+            this.formatter.registerColor(ColorEnum.YELLOW, 11);
+            this.formatter.registerColor(ColorEnum.BLUE, 12);
+            this.formatter.registerColor(ColorEnum.PINK, 13);
+            this.formatter.registerColor(ColorEnum.LIGHT_BLUE, 14);
+            this.formatter.registerColor(ColorEnum.WHITE, 15);
         }
         return this;
     }
@@ -74,15 +88,22 @@ class Logger {
      * Log something to your pipelines
      * @param profile the profile that you want to pipe
      * @param message the message that you want to pipe
+     * @returns boolean
      */
-    public log(profile: string, message: string): void {
-        if (this.logProfiles.has(profile)) {
-            const logProfile = this.logProfiles.get(profile);
+    public log(profile: string, message: string): boolean {
+        const logProfile = this.logProfiles.get(profile);
+        if      (logProfile)      {
             for (const [key, value] of this.pipelines) {
-                message = this.formatter.format(message, logProfile, value);
-                value.pipe(message, logProfile, this.logLevel);
+                const formattedMessage = this.formatter?.format(
+                    message,
+                    logProfile,
+                    value
+                ) ?? '';
+                value.pipe(formattedMessage, logProfile, this.logLevel);
             }
+            return true;
         }
+        return false;
     }
 
     /**
@@ -100,10 +121,10 @@ class Logger {
      * Register a new pipeline
      * @param pipeline Pipeline properties
      */
-    public registerPipeline(pipeline: Pipeline | PipelineProps): void {
+    public registerPipeline(pipeline: PipelineProps): void {
         this.pipelines.set(
             pipeline.name,
-            pipeline instanceof Pipeline ? pipeline : new Pipeline(pipeline)
+            pipeline instanceof PipelineProps ? pipeline : new Pipeline(pipeline)
         );
     }
 }
