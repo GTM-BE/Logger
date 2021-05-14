@@ -6,7 +6,7 @@
   "types": "dist/src/index.d.ts",
   "author": "Tobi die Topfpflanze",
   "devDependencies": {
-    "@types/node": "15.0.2",
+    "@types/node": "15.0.3",
     "husky": "^6.0.0",
     "prettier": "^2.3.0",
     "ts-node": "^9.1.1",
