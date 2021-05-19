@@ -13,7 +13,7 @@ class ConsolePipeline extends PipelineProps_1.default {
      * @returns
      */
     pipe(message, logProfile, logLevel) {
-        if (logLevel <= logProfile.logLevel)
+        if (logLevel >= logProfile.logLevel)
             console.log(message);
         return true;
     }
