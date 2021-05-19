@@ -16,7 +16,7 @@ class ConsolePipeline extends PipelineProps {
         logProfile: LogProfile,
         logLevel: number | LogLevel
     ): boolean {
-        if (logLevel <= logProfile.logLevel) console.log(message);
+        if (logLevel >= logProfile.logLevel) console.log(message);
         return true;
     }
 }
