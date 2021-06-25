@@ -16,11 +16,12 @@
     "prettier:fix": "prettier --config ./.prettierrc --write ./src/*",
     "dev": "",
     "test": "npx ts-node ./demo/example.ts",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "postinstall": "npm run build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:fix && npm run build"
+      "pre-commit": "npm run prettier:fix"
     }
   }
 }
