@@ -1,24 +1,18 @@
-import LogLevel from '../Types/LogLevelEnum';
-import PipelineProps from '../Types/PipelineProps';
-import LogProfile from '../LogProfile';
+import { LogProfile } from '../Types/LogProfile';
+import { Pipeline } from './Pipeline';
+class ConsolePipeline extends Pipeline {
+  constructor() {
+    super({ name: 'consolePipeline', includeColors: true });
+  }
 
-class ConsolePipeline extends PipelineProps {
-    constructor() {
-        super('consolePipeline', true);
-    }
-
-    /**
-     * write log to console
-     * @returns
-     */
-    public pipe(
-        message: string,
-        logProfile: LogProfile,
-        logLevel: number | LogLevel
-    ): boolean {
-        if (logLevel >= logProfile.logLevel) console.log(message);
-        return true;
-    }
+  /**
+   * write log to console
+   * @returns
+   */
+  public pipe(message: string, logProfile: LogProfile, logLevel: number): boolean {
+    if (logLevel >= logProfile.logLevel) console.log(message);
+    return true;
+  }
 }
 
-export default ConsolePipeline;
+export { ConsolePipeline };

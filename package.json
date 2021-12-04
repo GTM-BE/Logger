@@ -1,27 +1,31 @@
 {
   "name": "logger",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Custom logger for our projects",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "author": "Tobi die Topfpflanze",
   "devDependencies": {
     "@types/node": "16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.3.0",
     "husky": "^7.0.4",
     "prettier": "^2.5.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
   },
   "scripts": {
-    "prettier:fix": "prettier --config ./.prettierrc --write ./src/*",
-    "dev": "",
     "test": "npx ts-node ./demo/example.ts",
     "build": "tsc --build",
+    "lint": "eslint -c .eslintrc src/**/*.ts",
+    "prettier:fix": "prettier --config ./.prettierrc --write ./src/**/*",
+    "prettier:check": "prettier --config ./.prettierrc --check ./src/**/*",
     "postinstall": "npm run build"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier:fix"
+      "pre-commit": "npm run lint && npm run prettier:fix"
     }
   }
 }
