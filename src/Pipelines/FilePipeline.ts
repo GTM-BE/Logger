@@ -1,12 +1,21 @@
 import * as IO from 'fs';
+import * as Path from 'path';
 import { Pipeline } from './Pipeline';
 
 class FilePipeline extends Pipeline {
-  private filename: string;
+  private logPath = Path.join(process.cwd(), 'logs');
+  private fileName = `${new Date().toISOString().split('T')[0]}_${new Date()
+    .toTimeString()
+    .split(' ')[0]
+    .replaceAll(':', '-')}.log`;
 
-  constructor(filename = 'latest') {
+  constructor() {
     super({ name: 'filePipeline', includeColors: false });
-    this.filename = filename;
+    IO.readdirSync(this.logPath).forEach((file) => {
+      // delete log files after 2 weeks
+      IO.statSync(Path.join(this.logPath, file)).ctimeMs + 604800000 * 2 < Date.now() &&
+        IO.unlinkSync(Path.join(this.logPath, file));
+    });
   }
 
   /**
@@ -14,9 +23,9 @@ class FilePipeline extends Pipeline {
    * @returns string
    */
   private getFilePath() {
-    const path = `${process.cwd()}/logs/`;
-    if (!IO.existsSync(path)) IO.mkdirSync(path);
-    const filePath = `${path}${this.filename}.log`;
+    const filePath = Path.join(this.logPath, this.fileName);
+    if (!IO.existsSync(this.logPath)) IO.mkdirSync(this.logPath);
+    if (!IO.existsSync(filePath)) IO.writeFileSync(filePath, '', { encoding: 'utf8' });
     return filePath;
   }
 
@@ -25,7 +34,11 @@ class FilePipeline extends Pipeline {
    * @returns boolean
    */
   public pipe(message: string): boolean {
-    IO.appendFileSync(this.getFilePath(), message + '\n');
+    try {
+      IO.appendFileSync(this.getFilePath(), message + '\n', { encoding: 'utf8' });
+    } catch (error) {
+      return false;
+    }
     return true;
   }
 }

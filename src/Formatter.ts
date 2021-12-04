@@ -11,7 +11,7 @@ class Formatter {
 
   public static COLOR_REGEX = new RegExp(/%[a-zA-Z_]*%/gm);
   public static PLACEHOLDER_REGEX = new RegExp(/{{[a-zA-Z_]*}}/gm);
-  public static DEFAULT_FORMAT = `${Colors.GREY}[${Colors.DARK_GREY}${Placeholder.TIME}${Colors.GREY}] ${Placeholder.PREFIX}${Colors.GREY} >>> ${Placeholder.MESSAGE} \u001b[0m`;
+  public static DEFAULT_FORMAT = `${Colors.GREY}[${Colors.DARK_GREY}${Placeholder.TIME}${Colors.GREY}] ${Placeholder.PREFIX}${Colors.GREY} >>> ${Placeholder.MESSAGE} ${Colors.RESET}`;
 
   /**
    * Helper for message formatting
@@ -19,6 +19,8 @@ class Formatter {
    */
   constructor(template: string = Formatter.DEFAULT_FORMAT) {
     this.template = template;
+
+    this.colors.set(Colors.RESET, `\u001b[0m`);
 
     // Placeholder.PREFIX
     this.registerPlaceholder(

@@ -35,7 +35,7 @@ class Logger {
     }
 
     if (defaultPipelines) {
-      this.registerPipeline(new FilePipeline('logger'));
+      this.registerPipeline(new FilePipeline());
       this.registerPipeline(new ConsolePipeline());
     }
 

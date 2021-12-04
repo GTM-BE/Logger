@@ -1,4 +1,5 @@
 enum Colors {
+  RESET = '%reset%',
   BLACK = '%black%',
   DARK_RED = '%dark_red%',
   DARK_GREEN = '%dark_green%',
