@@ -1,5 +1,6 @@
 import * as IO from 'fs';
 import * as Path from 'path';
+
 import { Pipeline } from './Pipeline';
 
 class FilePipeline extends Pipeline {
@@ -11,11 +12,15 @@ class FilePipeline extends Pipeline {
 
   constructor() {
     super({ name: 'filePipeline', includeColors: false });
-    IO.readdirSync(this.logPath).forEach((file) => {
-      // delete log files after 2 weeks
-      IO.statSync(Path.join(this.logPath, file)).ctimeMs + 604800000 * 2 < Date.now() &&
-        IO.unlinkSync(Path.join(this.logPath, file));
-    });
+    if (!IO.existsSync(this.logPath)) {
+      IO.mkdirSync(this.logPath);
+    } else {
+      IO.readdirSync(this.logPath).forEach((file) => {
+        // delete log files after 2 weeks                    // week in ms * 2
+        IO.statSync(Path.join(this.logPath, file)).ctimeMs + 604800000 * 2 < Date.now() &&
+          IO.unlinkSync(Path.join(this.logPath, file));
+      });
+    }
   }
 
   /**

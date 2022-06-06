@@ -2,8 +2,8 @@
   "name": "logger",
   "version": "2.0.2",
   "description": "Custom logger for our projects",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/src/Index.js",
+  "types": "dist/src/Index.d.ts",
   "author": "Tobi die Topfpflanze",
   "devDependencies": {
     "@types/node": "17.0.38",
