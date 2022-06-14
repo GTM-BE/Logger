@@ -13,7 +13,7 @@
     "husky": "^8.0.1",
     "prettier": "^2.7.0",
     "ts-node": "^10.8.0",
-    "typescript": "^4.7.2"
+    "typescript": "^4.7.3"
   },
   "scripts": {
     "test": "npx ts-node ./demo/example.ts",
